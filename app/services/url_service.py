@@ -1,7 +1,5 @@
-from app.repositories.url_repository import (
-    add_slug_to_db,
-    get_long_url_by_slug_from_database
-)
+from app.repositories.url_repository import add_slug_to_db, get_long_url_by_slug_from_database
+
 from app.exceptions.url_exceptions import NoLongUrlFoundError
 from app.utils.slug_generator import generate_random_slug
 
