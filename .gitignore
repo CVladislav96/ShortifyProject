@@ -10,9 +10,58 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# VS Code
+.vscode/
+
 # UV
 .uv/
+.uvlock
+.uv-state.json
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Python
+*.pyc
+*.so
+.Python
+.pytest_cache/
+.coverage
+.coverage.*
+.cache
+htmlcov/
+
+#Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+#logs
+*.log
+logs/
+app.log
+
+#Secrets
+.env.local
+.env.*.local
+secrets.json
+config.local.yaml
+docker-compose.override.yml
+
+#Temporary files
+*.tmp
+*.temp
+/tmp/
+*.swp
+*.swo
+*~
+
+# Assembly and distribution
+build/
+dist/
+*.egg-info/
+.eggs/
+
+
