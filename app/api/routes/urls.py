@@ -11,7 +11,7 @@ router = APIRouter(prefix="/api/v1", tags=["urls"])
 @router.post("/short_url", response_model=ShortUrlResponse)
 async def create_short_url(request: ShortUrlRequest):
     new_slug = await generate_short_url(str(request.long_url))
-    return ShortUrlResponse(data=new_slug)
+    return ShortUrlResponse(data={"short_code": new_slug, "long_url": str(request.long_url)})
 
 
 @router.get("/{slug}")

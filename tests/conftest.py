@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.pool import StaticPool
 
-# Тестовая БД (in-memory SQLite для тестов)
+# Test database (in-memory SQLite for tests)
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"
 
 test_engine = create_async_engine(
@@ -18,33 +18,33 @@ TestSessionLocal = async_sessionmaker(
     expire_on_commit=False,
 )
 
-# Переопределяем модули БД ПЕРЕД импортом моделей
+# Redefine database modules BEFORE importing models
 import app.core.database as db_module
 db_module.engine = test_engine
 db_module.new_session = TestSessionLocal
 
-# ТЕПЕРЬ импортируем модели и остальное
+# NOW we import the models and the rest
 from app.models.url import Base
 from app.api.routes import urls
 
 
 @pytest.fixture(scope="function")
 async def setup_test_db():
-    """Создает тестовую БД и очищает её после каждого теста"""
-    # Создаем таблицы
+    """Creates a test database and clears it after each test"""
+    # Creating tables
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     
     yield
     
-    # Удаляем таблицы после теста
+    # Delete tables after testing
     async with test_engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
 
 
 @pytest.fixture(scope="function")
 async def test_app(setup_test_db):
-    """Создает тестовое приложение"""
+    """Creates a test application"""
     app = FastAPI(
         title="Shortify API Test",
         description="URL Shortener Service - Test",
@@ -56,5 +56,5 @@ async def test_app(setup_test_db):
 
 @pytest.fixture(scope="function")
 def client(test_app):
-    """Создает тестовый клиент для синхронных тестов"""
+    """Creates a test client for synchronous tests"""
     return TestClient(test_app)

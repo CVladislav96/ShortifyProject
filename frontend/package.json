@@ -1,0 +1,21 @@
+{
+  "name": "shortify-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Shortify - link shortening application",
+  "main": "index.html",
+  "scripts": {
+    "serve": "python -m http.server 8080",
+    "serve-windows": "python -m http.server 8080",
+    "dev": "python -m http.server 3000"
+  },
+  "keywords": [
+    "shortify",
+    "url-shortener",
+    "frontend",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "",
+  "license": "MIT"
+}

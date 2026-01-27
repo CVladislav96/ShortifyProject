@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortify - Shortening links</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">✂️ Shortify</h1>
+                <p class="tagline">Shorten links quickly and easily</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- URL Shortener Section -->
+            <section class="shortener-section">
+                <div class="card">
+                    <h2>Shorten link</h2>
+                    <form id="shortenForm" class="form">
+                        <div class="form-group">
+                            <label for="urlInput">Enter a long link:</label>
+                            <input 
+                                type="url" 
+                                id="urlInput" 
+                                placeholder="https://example.com/very/long/url" 
+                                required
+                            >
+                            <span id="urlError" class="error-message"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Reduce</span>
+                            <span class="btn-loader hidden"></span>
+                        </button>
+                    </form>
+
+                    <!-- Result Display -->
+                    <div id="resultContainer" class="result-container hidden">
+                        <div class="result-card">
+                            <h3>Your shortened link is ready! 🎉</h3>
+                            <div class="result-item">
+                                <label>Original link:</label>
+                                <p id="originalUrl" class="original-url"></p>
+                            </div>
+                            <div class="result-item">
+                                <label>Shortened link:</label>
+                                <div class="short-url-container">
+                                    <input 
+                                        type="text" 
+                                        id="shortUrl" 
+                                        readonly 
+                                        class="short-url-input"
+                                    >
+                                    <button type="button" id="copyBtn" class="btn btn-secondary btn-small">
+                                        📋 Copy
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="result-item">
+                                <label>Reference code:</label>
+                                <p id="shortCode" class="short-code"></p>
+                            </div>
+                            <button type="button" id="resetBtn" class="btn btn-outline">
+                                Cut one more
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="card">
+                    <h2>History of reductions</h2>
+                    <div id="historyContainer" class="history-container">
+                        <div class="empty-state">
+                            <p>📭 History is empty so far</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Shortify.&#11088; <a href="https://github.com/CVladislav96/ShortifyProject">Open source educational project on GitHub</a> &#11088; </p>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+    
+    <script>
+        // Check if current path is a short code (slug) and redirect to API
+        const path = window.location.pathname.substring(1);
+        console.log('Current path:', path);
+        
+        // Check if path looks like a slug (only alphanumeric, no extensions)
+        if (path && !path.includes('.') && !path.includes('/')) {
+            console.log('Detected slug:', path);
+            // This is a short code, redirect to API endpoint
+            window.location.href = `http://localhost:8000/api/v1/${path}`;
+        } else {
+            console.log('Not a slug, showing main app');
+        }
+    </script>
+</body>
+</html>

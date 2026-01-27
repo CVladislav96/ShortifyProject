@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 
 
 def test_create_short_url_success(client: TestClient):
-    """Тест успешного создания короткой ссылки"""
+    """Test for successful creation of a short link"""
     response = client.post(
         "/api/v1/short_url",
         json={"long_url": "https://example.com"}
@@ -13,11 +13,11 @@ def test_create_short_url_success(client: TestClient):
     data = response.json()
     assert "data" in data
     assert isinstance(data["data"], str)
-    assert len(data["data"]) == 6  # Длина slug
+    assert len(data["data"]) == 6  # Length slug
 
 
 def test_create_short_url_invalid_url(client: TestClient):
-    """Тест создания короткой ссылки с невалидным URL"""
+    """Test for creating a short link with an invalid URL"""
     response = client.post(
         "/api/v1/short_url",
         json={"long_url": "not-a-valid-url"}
@@ -27,7 +27,7 @@ def test_create_short_url_invalid_url(client: TestClient):
 
 
 def test_create_short_url_missing_field(client: TestClient):
-    """Тест создания короткой ссылки без обязательного поля"""
+    """Test creating a short link without a required field"""
     response = client.post(
         "/api/v1/short_url",
         json={}
@@ -37,8 +37,8 @@ def test_create_short_url_missing_field(client: TestClient):
 
 
 def test_redirect_to_url_success(client: TestClient):
-    """Тест успешного редиректа по slug"""
-    # Сначала создаем короткую ссылку
+    """Test for successful redirection by slug"""
+    # First, create a short link
     create_response = client.post(
         "/api/v1/short_url",
         json={"long_url": "https://example.com/test"}
@@ -46,8 +46,8 @@ def test_redirect_to_url_success(client: TestClient):
     
     assert create_response.status_code == 200
     slug = create_response.json()["data"]
-    
-    # Теперь проверяем редирект
+
+    # Now let's check the redirect
     redirect_response = client.get(
         f"/api/v1/{slug}",
         follow_redirects=False
@@ -58,7 +58,7 @@ def test_redirect_to_url_success(client: TestClient):
 
 
 def test_redirect_to_url_not_found(client: TestClient):
-    """Тест редиректа с несуществующим slug"""
+    """Redirect test with a non-existent slug"""
     response = client.get(
         "/api/v1/nonexistent",
         follow_redirects=False
@@ -71,7 +71,7 @@ def test_redirect_to_url_not_found(client: TestClient):
 
 
 def test_create_multiple_short_urls(client: TestClient):
-    """Тест создания нескольких коротких ссылок"""
+    """Testing the creation of several short links"""
     urls = [
         "https://example.com/page1",
         "https://example.com/page2",
@@ -87,10 +87,10 @@ def test_create_multiple_short_urls(client: TestClient):
         assert response.status_code == 200
         slugs.append(response.json()["data"])
     
-    # Проверяем, что все slug уникальны
+    # We check that all slugs are unique.
     assert len(set(slugs)) == len(slugs)
     
-    # Проверяем, что все редиректы работают
+    # We check that all redirects are working.
     for slug, original_url in zip(slugs, urls):
         redirect_response = client.get(
             f"/api/v1/{slug}",
@@ -101,7 +101,7 @@ def test_create_multiple_short_urls(client: TestClient):
 
 
 def test_create_short_url_different_urls(client: TestClient):
-    """Тест создания коротких ссылок для разных URL"""
+    """Test for creating short links for different URLs"""
     url1 = "https://google.com/"
     url2 = "https://github.com/"
     
@@ -120,7 +120,7 @@ def test_create_short_url_different_urls(client: TestClient):
     slug1 = response1.json()["data"]
     slug2 = response2.json()["data"]
     
-    # Проверяем редиректы
+    # Checking redirects
     redirect1 = client.get(f"/api/v1/{slug1}", follow_redirects=False)
     redirect2 = client.get(f"/api/v1/{slug2}", follow_redirects=False)
     
