@@ -15,6 +15,7 @@ dependencies = [
     "requests>=2.32.5",
     "sqlalchemy>=2.0.46",
     "uvicorn>=0.40.0",
+    "alembic>=1.18.1",
 ]
 
 [dependency-groups]

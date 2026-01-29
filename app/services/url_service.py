@@ -1,10 +1,18 @@
-from app.repositories.url_repository import add_slug_to_db, get_long_url_by_slug_from_database
+from app.repositories.url_repository import (
+    add_slug_to_db, 
+    get_long_url_by_slug_from_database,
+    get_slug_by_long_url_from_database
+)
 
 from app.exceptions.url_exceptions import NoLongUrlFoundError
 from app.utils.slug_generator import generate_random_slug
 
 
 async def generate_short_url(long_url: str) -> str:
+    existing_slug = await get_slug_by_long_url_from_database(long_url)
+    if existing_slug:
+        return existing_slug
+    
     slug = generate_random_slug()
     await add_slug_to_db(slug, long_url)
     return slug
