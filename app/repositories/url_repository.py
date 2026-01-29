@@ -22,3 +22,11 @@ async def get_long_url_by_slug_from_database(slug: str) -> str | None:
         result = await session.execute(query)
         res: ShortURL | None = result.scalar_one_or_none()
         return res.long_url if res else None
+
+
+async def get_slug_by_long_url_from_database(long_url: str) -> str | None:
+    async with new_session() as session:
+        query = select(ShortURL).filter_by(long_url=long_url)
+        result = await session.execute(query)
+        res: ShortURL | None = result.scalar_one_or_none()
+        return res.slug if res else None
