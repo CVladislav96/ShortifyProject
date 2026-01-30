@@ -8,6 +8,7 @@ from fastapi.staticfiles import StaticFiles
 from app.core.database import engine
 from app.models.url import Base
 from app.api.routes import urls
+from app.middleware.rate_limiter import RateLimitMiddleware
 
 
 @asynccontextmanager
@@ -31,6 +32,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.add_middleware(RateLimitMiddleware, calls=5, period=60)
 
 app.include_router(urls.router)
 app.include_router(urls.router, prefix="")

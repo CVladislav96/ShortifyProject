@@ -62,7 +62,6 @@ __## 🚀 Quick Start
 
 - Python 3.12+
 - Docker & Docker Compose (optional, for containerized setup)
-- Node.js (optional, for frontend development)
 
 ### Local Development Setup
 
