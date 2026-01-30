@@ -56,7 +56,7 @@ ShortifyProject/
 └── README.md               # This file
 ```
 
-__## 🚀 Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
 
@@ -136,7 +136,7 @@ This will start both the backend API and frontend services.
 
 Automatically redirects to the original URL and increments the click counter.
 
-### Get URL Details__
+### Get URL Details
 
 **Endpoint:** `GET /api/urls/{short_code}`
 
@@ -243,16 +243,19 @@ See [frontend/README.md](frontend/README.md) for detailed frontend documentation
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+### MIT License Summary
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+- ✅ **Commercial use**: You can use this software for commercial purposes
+- ✅ **Modification**: You can modify the software
+- ✅ **Distribution**: You can distribute the software
+- ✅ **Private use**: You can use this software privately
+- ⚠️ **Liability**: The software is provided "as is", without warranty
+- ⚠️ **Copyright**: Must include the original copyright notice
 
-## 📞 Support
-
-For issues and questions, please open an issue in the repository.
+For the full license text, please refer to the [LICENSE](LICENSE) file in the repository.
 
 ---
 
-**Last Updated:** January 28, 2026
+**Last Updated:** January 30, 2026
